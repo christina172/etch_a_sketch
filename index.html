@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Etch-a-Sketch</h1>
+    <p>This is an Etch-a-Sketch. You have a 50x50 screen. To start a new drawing and/or change the number of squares per side on the screen and switch the color of your pencil from black to colorful and back press one of the buttons below. Click inside the screen and start drawing!</p>
+    <button class="black">Black theme</button>
+    <button class="colorful">Colorful <span>theme</span></button>
+    <div class="container"></div>
+
+    <script>
+        let container=document.querySelector('.container');
+        let number;
+        let buttonBlack = document.querySelector('.black');
+        let buttonColor = document.querySelector('.colorful');
+
+        buttonBlack.addEventListener('click', () => {
+            number=prompt('Enter the number of squares per side. Choose a number between 1 and 100', "50");
+            let n=parseInt(number);
+            if (!Number.isInteger(n)) {
+                alert('You should enter a number. Try again');
+            } else if (n>100 || n<=0) {
+                alert('You should enter a number between 1 and 100. Try again');
+            } else {
+                container.textContent='';
+                container.style.cssText=`grid-template-columns: repeat(${n}, 1fr)`;
+                for (let j=0; j<(n**2); j++) {
+                    let div = document.createElement("div"); 
+                    div.classList.add('grid'); 
+                    container.appendChild(div);
+                    container.addEventListener('mousedown', () => {
+                    div.addEventListener('mouseenter', paint);
+                    function paint(e) {
+                        div. style.backgroundColor="black";
+                    };
+                });
+            };};
+        });
+
+        buttonColor.addEventListener('click', () => {
+            number=prompt('Enter the number of squares per side. Choose a number between 1 and 100', "50");
+            let n=parseInt(number);
+            if (!Number.isInteger(n)) {
+                alert('You should enter a number. Try again');
+            } else if (n>100 || n<=0) {
+                alert('You should enter a number between 1 and 100. Try again');
+            } else {
+                container.textContent='';
+                container.style.cssText=`grid-template-columns: repeat(${n}, 1fr)`;
+                for (let j=0; j<(n**2); j++) {
+                    let div = document.createElement("div"); 
+                    div.classList.add('grid'); 
+                    container.appendChild(div);
+                    container.addEventListener('mousedown', () => {
+                    div.addEventListener('mouseenter', paint);
+                    function paint(e) {
+                        div. style.backgroundColor="rgb("+e.clientX/2.4+", "+e.clientY/2.4+", 80)";
+                    };
+                });
+            };};
+        });
+
+        for (let i=0; i<(50**2); i++) {
+            container.style.cssText='grid-template-columns: repeat(50, 1fr)';
+            let div = document.createElement("div"); 
+            div.classList.add('grid'); 
+            container.appendChild(div);
+            container.addEventListener('mousedown', () => {
+                div.addEventListener('mouseenter', paint);
+                function paint(e) {
+                    div.style.backgroundColor="black";
+                };
+            });
+        };
+        
+    </script>
+</body>
+</html>
